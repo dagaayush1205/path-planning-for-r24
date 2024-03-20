@@ -168,7 +168,7 @@ class RRT:
         plt.gcf().canvas.mpl_connect(
             'key_release_event',
             lambda event: [exit(0) if event.key == 'escape' else None])
-        quadrilateral([10,50],[20,80])
+       # quadrilateral([10,50],[20,80])
         if rnd is not None:
             plt.plot(rnd.x, rnd.y, "^k")
             if self.robot_radius > 0.0:
@@ -206,8 +206,8 @@ class RRT:
 
 
     @staticmethod
-    def quadrilateral([x1,x2],[y1,y2],color="-b"):
-        plt.plot([x1,x2],[y1,y2])
+    #def quadrilateral([x1,x2],[y1,y2],color="-b"):
+     #   plt.plot([x1,x2],[y1,y2])
     @staticmethod
     def get_nearest_node_index(node_list, rnd_node):
         dlist = [(node.x - rnd_node.x)**2 + (node.y - rnd_node.y)**2
