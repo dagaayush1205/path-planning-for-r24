@@ -8,8 +8,13 @@ fig, ax = plt.subplots()
 df = pd.read_csv("point.csv")
 #working arena size is 10m x 4m
 # i have take a precision of 1cm and taking every grid to be 1000 x 400 resolution
-for i in range 1000:
-    for j in range 400:
-        list[j,i
-plt.scatter(df.x,df.y)
-plt.show()
+class RRT:
+    grid = np.full((100,100,3),-1)
+    # the grid has other values including obstacle size which will range from 0 to 1
+    # it also has orientation of the grid, all of them have -1 by default in case that
+    # it remains unexplored, in simple terms, rover has give -1 to all unexplored part
+    # since everything that it must include must be in whole numbers
+    # format(x,y,z,orientation wrt to rover, cost)
+    #note for testing stage the area is 100x100units only
+def map():
+    for i in range (0,99)
