@@ -1,13 +1,6 @@
-"""
-
-Path planning Sample Code with Randomized Rapidly-Exploring Random Trees (RRT)
-
-author: AtsushiSakai(@Atsushi_twi)
-
-"""
-
 import math
 import random
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -36,8 +29,8 @@ class RRT:
         def __init__(self, area):
             self.xmin = float(area[0])
             self.xmax = float(area[1])
-            self.ymin = float(area[2])
-            self.ymax = float(area[3])
+            self.ymin = float(area[0])
+            self.ymax = float(area[1])
 
 
     def __init__(self,
@@ -45,12 +38,12 @@ class RRT:
                  goal,
                  obstacle_list,
                  rand_area,
-                 expand_dis=3.0,
-                 path_resolution=0.5,
+                 expand_dis=10.0,
+                 path_resolution=1,
                  goal_sample_rate=5,
-                 max_iter=500,
+                 max_iter=5000,
                  play_area=None,
-                 robot_radius=0.0,
+                 robot_radius=1,
                  ):
         """
         Setting Parameter
@@ -255,7 +248,7 @@ class RRT:
         return d, theta
 
 
-def main(gx=6.0, gy=10.0):
+def main(gx=99, gy=99):
     print("start " + __file__)
 
     # ====Search Path with RRT====
