@@ -41,7 +41,7 @@ class RRT:
                  expand_dis=10.0,
                  path_resolution=1,
                  goal_sample_rate=5,
-                 max_iter=50000,
+                 max_iter=5000,
                  play_area=None,
                  robot_radius=1,
                  ):
@@ -191,7 +191,7 @@ class RRT:
         plt.plot(self.start.x, self.start.y, "xr")
         plt.plot(self.end.x, self.end.y, "xr")
         plt.axis("equal")
-        plt.axis([0, 100, 0, 100])
+        plt.axis([-2, 15, -2, 15])
         plt.grid(True)
         plt.pause(0.01)
 
@@ -224,8 +224,6 @@ class RRT:
             return True  # inside - ok
 
     @staticmethod
-
-    #use of obstacle circle is here
     def check_collision(node, obstacleList, robot_radius):
 
         if node is None:
@@ -250,7 +248,7 @@ class RRT:
         return d, theta
 
 
-def main(gx=100, gy=100):
+def main(gx=99, gy=99):
     print("start " + __file__)
 
     # ====Search Path with RRT====
