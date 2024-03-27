@@ -171,7 +171,7 @@ class RRT:
         if rnd is not None:
             plt.plot(rnd.x, rnd.y, "^k")
             if self.robot_radius > 0.0:
-                self.plot_circle(rnd.x, rnd.y, self.robot_radius, '-r')
+                self.plot_circle([0,10], [0,10], self.robot_radius, '-r')
         for node in self.node_list:
             if node.parent:
                 plt.plot(node.path_x, node.path_y, "-g")
@@ -196,12 +196,12 @@ class RRT:
         plt.pause(0.01)
 
     @staticmethod
-    def plot_circle(x, y, size, color="-b"):  # pragma: no cover
+    def plot_circle(x, y, color="-b"):  # pragma: no cover
         deg = list(range(0, 360, 5))
         deg.append(0)
-        xl = [x + size * math.cos(np.deg2rad(d)) for d in deg]
-        yl = [y + size * math.sin(np.deg2rad(d)) for d in deg]
-        plt.plot(xl, yl, color)
+       # xl = [x + size * math.cos(np.deg2rad(d)) for d in deg]
+       # yl = [y + size * math.sin(np.deg2rad(d)) for d in deg]
+        plt.plot(x, y, color)
 
     @staticmethod
     def get_nearest_node_index(node_list, rnd_node):
