@@ -40,18 +40,19 @@ class RRT:
                      max_iter=5000,
                      play_area=[0,100,0,100],
                      robot_dim=[5,5]):
-            '''
+            """
             start:start position[x,y]
             goal: [x,y]
             obstacleList:obstacle position
             randArea: Random Sampling Area[miin,max]
             play_area: boundry
             robot_dim = robot dimensions[X x Y]
-            '''
+            """
             self.start = self.Node(start[0],start[1])
             self.end = self.Node(goal[0],goal[1])
             self.min_rand = rand_area[0]
             self.max_rand = rand_area[1]
+            print("start"
             if play_area is not None:
                 self.play_area = self.AreaBounds(play_area)
             else:
@@ -76,5 +77,60 @@ class RRT:
                         self.node_list.append(new_node)
                     if animation and i % 5 == 0:
                         self.draw_graph(rnd_node)
-                    if self.calc_dist_to_goal(self.node
+                    if self.calc_dist_to_goal(self.node_list[-1].x,,self.node_list[-1].y) <= self.expand_dis:
+                        final_node = self.steer(self.node_list[-1], self.end, self.expand_dis)
+                        if self.check_collision(final_node, self.obstacle_list,self.robot_dim):
+                            return self.generate_final_course(len(self.node_list) - 1)
+                    if animation and i % 5:
+                        self.draw_graph(rnd_node)
 
+                return None
+            
+            def steer(self, from_node, to_node, extend_length=float("inf")):
+                
+                new_node = self.Node(from_node.x,from_node.y)
+                d, theta = self.calc_distance_and_angle(new_node, to_node)
+
+                new_node.path_x = [new_node.x]
+                new_node.path_y = [new_node.y]
+
+                if extend_length > d:
+                    extend_length = d
+
+                n_expand = math.floor(extend_length / self.path_resolution)
+
+                for _ in range(n_expand):
+                    new_node.x += self.path_resolution * math.cos(theta)
+                    new_node.y += self.path_resolution * math.sin(theta)
+                    new_node.path_x.append(new_node.x)
+                    new_node.path_y.append(new_node.y)
+
+                d, _ = self.calc_distance_and_angle(new_node, to_node)
+                if d <= self.path_resolution:
+                    new_node.path_x.append(to_node.x)
+                    new_node.path_y.append(to_node.y)
+                    new_node.x = to_node.x
+                    new_node.y = to_node.y
+
+                new_node.parent = from_node
+
+                return new_node
+            
+
+            def generate_final_course(self, goal_ind):
+                path = [[self.end.x,self.end.y]]
+                node = self.node_list[goal_ind]
+                while node.parent is not None:
+                    path.append([node.x,node.y])
+                    node = node.parent
+                path.append([node.x,node.y])
+
+                return path
+
+            def calc_dist_to_goal(self,x,y):
+                dx = x - self.end.x
+                dy = y - self.end.y
+                return math.hypot(dx,dy)
+
+            def get_random_node(self):
+                if random.randint(0,
