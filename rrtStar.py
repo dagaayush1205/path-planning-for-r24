@@ -42,7 +42,7 @@ class RRT:
                  path_resolution=1,
                  goal_sample_rate=5,
                  max_iter=5000,
-                 play_area=None,
+                 play_area=[0,100,0,100],
                  robot_radius=1,
                  ):
         """
@@ -238,7 +238,10 @@ class RRT:
             dx_list = [ox - x for x in node.path_x]
             dy_list = [oy - y for y in node.path_y]
             d_list = [dx * dx + dy * dy for (dx, dy) in zip(dx_list, dy_list)]
-
+       '''
+       for (ox1,oy1,ox2,oy2) in quadrilateral:
+            dx_list = [
+        '''
             if min(d_list) <= (size+robot_radius)**2:
                 return False  # collision
 
@@ -265,7 +268,6 @@ def main(gx=99, gy=99):
         goal=[gx, gy],
         rand_area=[-2, 15],
         obstacle_list=obstacleList,
-        # play_area=[0, 10, 0, 14]
         robot_radius=0.8
         )
     path = rrt.planning(animation=show_animation)
