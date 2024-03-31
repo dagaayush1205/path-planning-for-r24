@@ -1,3 +1,11 @@
+"""
+
+Path planning Sample Code with Randomized Rapidly-Exploring Random Trees (RRT)
+
+author: AtsushiSakai(@Atsushi_twi)
+
+"""
+
 import math
 import random
 
@@ -29,8 +37,8 @@ class RRT:
         def __init__(self, area):
             self.xmin = float(area[0])
             self.xmax = float(area[1])
-            self.ymin = float(area[0])
-            self.ymax = float(area[1])
+            self.ymin = float(area[2])
+            self.ymax = float(area[3])
 
 
     def __init__(self,
@@ -40,10 +48,10 @@ class RRT:
                  rand_area,
                  expand_dis=10.0,
                  path_resolution=1,
-                 goal_sample_rate=5,
+                 goal_sample_rate=10,
                  max_iter=5000,
                  play_area=[0,100,0,100],
-                 robot_radius=1,
+                 robot_radius=0.5,
                  ):
         """
         Setting Parameter
@@ -168,18 +176,16 @@ class RRT:
         plt.gcf().canvas.mpl_connect(
             'key_release_event',
             lambda event: [exit(0) if event.key == 'escape' else None])
-        self.quadrilateral(90,0,0,90)
         if rnd is not None:
             plt.plot(rnd.x, rnd.y, "^k")
             if self.robot_radius > 0.0:
-               self.plot_circle(rnd.x,rnd.y, self.robot_radius, '-r')
+                self.plot_circle(rnd.x, rnd.y, self.robot_radius, '-r')
         for node in self.node_list:
             if node.parent:
                 plt.plot(node.path_x, node.path_y, "-g")
 
-        for (ox, oy, size) in self.obstacle_list:
-            self.plot_circle(ox, oy, size)
-
+       # for (ox, oy, size) in self.obstacle_list:
+        #    self.plot_circle(ox, oy, size)
         if self.play_area is not None:
             plt.plot([self.play_area.xmin, self.play_area.xmax,
                       self.play_area.xmax, self.play_area.xmin,
@@ -188,7 +194,7 @@ class RRT:
                       self.play_area.ymax, self.play_area.ymax,
                       self.play_area.ymin],
                      "-k")
-
+        plt.plot([30,90,90,30,30],[30,30,90,90,30],"-b")
         plt.plot(self.start.x, self.start.y, "xr")
         plt.plot(self.end.x, self.end.y, "xr")
         plt.axis("equal")
@@ -197,17 +203,17 @@ class RRT:
         plt.pause(0.01)
 
     @staticmethod
-    def plot_circle(x, y,size, color="-b"):  # pragma: no cover
+    def plot_circle(x, y, size, color="-b"):  # pragma: no cover
         deg = list(range(0, 360, 5))
         deg.append(0)
         xl = [x + size * math.cos(np.deg2rad(d)) for d in deg]
         yl = [y + size * math.sin(np.deg2rad(d)) for d in deg]
-        plt.plot(x, y, color)
-
+        plt.plot(xl, yl, color)
 
     @staticmethod
-    def quadrilateral(x1,x2,y1,y2):
-        plt.plot([x1,x2],[y1,y2],"-b")
+    def plot_lines(x1,y1,x2,y2):
+        plt.plot([x1,y1,x2,y2],"-b")
+
     @staticmethod
     def get_nearest_node_index(node_list, rnd_node):
         dlist = [(node.x - rnd_node.x)**2 + (node.y - rnd_node.y)**2
@@ -238,10 +244,7 @@ class RRT:
             dx_list = [ox - x for x in node.path_x]
             dy_list = [oy - y for y in node.path_y]
             d_list = [dx * dx + dy * dy for (dx, dy) in zip(dx_list, dy_list)]
-            '''
-            for (ox1,oy1,ox2,oy2) in quadrilateral:
-            dx_list = [
-            '''
+
             if min(d_list) <= (size+robot_radius)**2:
                 return False  # collision
 
@@ -260,13 +263,15 @@ def main(gx=99, gy=99):
     print("start " + __file__)
 
     # ====Search Path with RRT====
-    obstacleList = [(5, 5, 1), (3, 6, 2), (3, 8, 2), (3, 10, 2), (7, 5, 2),
-                    (9, 5, 2), (8, 10, 1)]  # [x, y, radius]
+    obstacleList = [(30, 30, 0.5)]
+    for i in range(30,90):
+        for j in range(30,90):
+            obstacleList.append((i,j,0.5))
     # Set Initial parameters
     rrt = RRT(
         start=[0, 0],
         goal=[gx, gy],
-        rand_area=[-2, 15],
+        rand_area=[0, 100],
         obstacle_list=obstacleList,
         robot_radius=0.8
         )

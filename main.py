@@ -133,4 +133,12 @@ class RRT:
                 return math.hypot(dx,dy)
 
             def get_random_node(self):
-                if random.randint(0,
+                if random.randint(0, 100) > self.goal_sample_rate:
+                    rnd = self.Node(random.uniform(self.min_rand,self.max_rand),random.uniform(self.min_rand,self.max_rand))
+                else: 
+                    rnd = self.Node(self.end.x, self.end.y)
+                return rnd
+            def draw_graph(self,rnd=None):
+                plt.clf()
+                plt.gcf().canvas.mpl_connect('key_release_event',lambda event: [exit(0) if event.key == 'escape' else None])
+                plt.plot(
