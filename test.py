@@ -195,6 +195,7 @@ class RRT:
                       self.play_area.ymin],
                      "-k")
         plt.plot([30,90,90,30,30],[30,30,90,90,30],"-b")
+     #   plt.plot([300,400,400,300,300],[100,100,400,400,100],"-b")
         plt.plot(self.start.x, self.start.y, "xr")
         plt.plot(self.end.x, self.end.y, "xr")
         plt.axis("equal")
@@ -259,7 +260,7 @@ class RRT:
         return d, theta
 
 
-def main(gx=9000, gy=399):
+def main(gx=9000, gy=209):
     print("start " + __file__)
 
     # ====Search Path with RRT====
@@ -267,6 +268,9 @@ def main(gx=9000, gy=399):
     for i in range(30,90):
         for j in range(30,90):
             obstacleList.append((i,j,0.5))
+   # for i in range (300,400):
+    #    for j in range (100,400):
+     #       obstacleList.append((i,j,0.5))
     # Set Initial parameters
     rrt = RRT(
         start=[0, 0],
