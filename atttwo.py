@@ -1,13 +1,13 @@
 import math
 import matplotlib.pyplot as plt
-
+import numpy as np
 def main():
-    area = [[0,0,0]]
+    area = np.full((100,100,1),0)
     """
     0: new
     1: open
     -1: obstacle
     """
-    playGround=[0,100,0,100]
-    # playGround[xmin,xmax,ymin,ymax]
-    
+    print(area[51,54,0])
+if __name__=='__main__':
+    main()
