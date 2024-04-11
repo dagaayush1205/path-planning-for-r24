@@ -214,8 +214,8 @@ def main():
     start = [10, 10]
     goal = [50, 50]
     if show_animation:
-        plt.plot(ox, oy, ".k")
-        plt.plot(start[0], start[1], "og")
+        #plt.plot(ox, oy, ".k")
+        #plt.plot(start[0], start[1], "og")
         plt.plot(goal[0], goal[1], "xb")
         plt.axis("equal")
 
@@ -231,9 +231,9 @@ def main():
     start = goal
     goal = [0,10]
     if show_animation:
-        plt.plot(ox,oy,".k")
-        plt.plot(start[0],start[1],"og")
-        plt.plot(goal[0],goal[1],"xb")
+        #plt.plot(ox,oy,".k")
+        #plt.plot(start[0],start[1],"og")
+        #plt.plot(goal[0],goal[1],"xb")
         plt.axis("equal")
 
     start = m.map[start[0]][start[1]]
@@ -241,7 +241,7 @@ def main():
     dtar = Dstar(m)
     rx, ry = dstar.run(start,end)
     if show_animation:
-        plt.plot(rx,ry,"-r")
+        #plt.plot(rx,ry,"-r")
         plt.show()
 
 
