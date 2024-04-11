@@ -137,7 +137,7 @@ def main():
             plt.plot(pos[0],pos[1],"-xg")
             plt.plot([0,10000,10000,0,0],[0,0,400,400,0],"-r")
             pos[0]=a[0]
-            pos[1]=a[1]
+            pos[1]=a[1] 
             orientation_last=float(a[3])
             print("next step:",a)
         print("ALERT: Reached Waypoint",i)
