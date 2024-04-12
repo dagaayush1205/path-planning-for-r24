@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def detected(area):
-    for i in range(0,2500):
-        for j in range(10,250):
-            area[i][j]=-1
+    #for i in range(30,200):
+        #for j in range(30,55):
+            #area[i][j]=-1
+    #plt.plot([30,200,200,30,10],[30,30,55,55,30],"-b")
 
     return area
 def distance(x1,y1,x2,y2):
@@ -14,78 +15,78 @@ def distance(x1,y1,x2,y2):
 def neighbour_cells(pos,playGround,area,orientation_last):
     cells=[]
     orientation=[]
-    print(orientation_last)
+    print(orientation_last[0])
     #(-1-1)
     if pos[0]-1 >= playGround[0] and pos[0]-1 <= playGround[1] and pos[1]-1 >= playGround[2] and pos[1]-1 <= playGround[3]:
         if area[pos[0]-1][pos[1]-1] != -1:
             cells.append([pos[0]-1,pos[1]-1])
-            if(math.fabs(orientation_last-225)>=180):
-                orientation.append([math.fabs(225-orientation_last)])
+            if(math.fabs(orientation_last[0]-225)>=180):
+                orientation.append([math.fabs(225-orientation_last[0])])
             else:
-                orientation.append([math.fabs(orientation_last-225)])
+                orientation.append([math.fabs(orientation_last[0]-225)])
 
     #(0 -1)
     if pos[0] >= playGround[0] and pos[0] <= playGround[1] and pos[1]-1 >= playGround[2] and pos[1]-1 <= playGround[3]:
         if area[pos[0]][pos[1]-1] != -1:
             cells.append([pos[0],pos[1]-1]) 
-            if(math.fabs(orientation_last-270)>=180):
-                orientation.append([math.fabs(270-orientation_last)])
+            if(math.fabs(orientation_last[0]-270)>=180):
+                orientation.append([math.fabs(270-orientation_last[0])])
             else:
-                orientation.append([math.fabs(orientation_last-270)])
+                orientation.append([math.fabs(orientation_last[0]-270)])
 
     #(1 -1)
     if pos[0]+1 >= playGround[0] and pos[0]+1 <= playGround[1] and pos[1]-1 >= playGround[2] and pos[1]-1 <= playGround[3]:
         if area[pos[0]+1][pos[1]-1] != -1:
             cells.append([pos[0]+1,pos[1]-1])  
-            if(math.fabs(orientation_last-315)>=180):
-                orientation.append([math.fabs(315-orientation_last)])
+            if(math.fabs(orientation_last[0]-315)>=180):
+                orientation.append([math.fabs(315-orientation_last[0])])
             else:
-                orientation.append([math.fabs(orientation_last-315)])
+                orientation.append([math.fabs(orientation_last[0]-315)])
     #(1 0)
     if pos[0]+1 >= playGround[0] and pos[0]+1 <= playGround[1] and pos[1] >= playGround[2] and pos[1] <= playGround[3]:
         if area[pos[0]+1][pos[1]] != -1:
             cells.append([pos[0]+1,pos[1]])
-            if(math.fabs(orientation_last-360)>=180):
-                orientation.append([math.fabs(360-orientation_last)])
+            if(math.fabs(orientation_last[0]-360)>=180):
+                orientation.append([math.fabs(360-orientation_last[0])])
             else:
-                orientation.append([math.fabs(orientation_last-360)])
+                orientation.append([math.fabs(orientation_last[0]-360)])
 
     #(1 1)
     if pos[0]+1 >= playGround[0] and pos[0]+1 <= playGround[1] and pos[1]+1 >= playGround[2] and pos[1]+1 <= playGround[3]:
         if area[pos[0]+1][pos[1]+1] != -1:
             cells.append([pos[0]+1,pos[1]+1])
-            if(math.fabs(orientation_last-180)>=180):
-                orientation.append([math.fabs(45-orientation_last)])
+            if(math.fabs(orientation_last[0]-180)>=180):
+                orientation.append([math.fabs(45-orientation_last[0])])
             else:
-                orientation.append([math.fabs(orientation_last-45)])
+                orientation.append([math.fabs(orientation_last[0]-45)])
 
     #(0 1)
     if pos[0] >= playGround[0] and pos[0] <= playGround[1] and pos[1]+1 >= playGround[2] and pos[1]+1 <= playGround[3]:
         if area[pos[0]][pos[1]+1] != -1:
             cells.append([pos[0],pos[1]+1])
-            if(math.fabs(orientation_last-90)>=180):
-                orientation.append([math.fabs(90-orientation_last)])
+            if(math.fabs(orientation_last[0]-90)>=180):
+                orientation.append([math.fabs(90-orientation_last[0])])
             else:
-                orientation.append([math.fabs(orientation_last-90)])
+                orientation.append([math.fabs(orientation_last[0]-90)])
     
     #(-1 1)
     if pos[0]-1 >= playGround[0] and pos[0]-1 <= playGround[1] and pos[1]+1 >= playGround[2] and pos[1]+1 <= playGround[3]:
         if area[pos[0]-1][pos[1]+1] != -1:
             cells.append([pos[0]-1,pos[1]+1]) 
-            if(math.fabs(orientation_last-135)>=180):
-                orientation.append([math.fabs(135-orientation_last)])
+            if(math.fabs(orientation_last[0]-135)>=180):
+                orientation.append([math.fabs(135-orientation_last[0])])
             else:
-                orientation.append([math.fabs(orientation_last-135)])
+                orientation.append([math.fabs(orientation_last[0]-135)])
 
     #(-1 0)
     if pos[0]-1 >= playGround[0] and pos[0]-1 <= playGround[1] and pos[1] >= playGround[2] and pos[1] <= playGround[3]:
         if area[pos[0]-1][pos[1]] != -1:
             cells.append([pos[0]-1,pos[1]])
-            if(math.fabs(orientation_last-180)>=180):
-                orientation.append([math.fabs(180-orientation_last)])
+            if(math.fabs(orientation_last[0]-180)>=180):
+                orientation.append([math.fabs(180-orientation_last[0])])
             else:
-                orientation.append([math.fabs(orientation_last-180)])
-    print(cells)
+                orientation.append([math.fabs(orientation_last[0]-180)])
+    #print(cells)
     return cells,orientation
        
 def neighbour_least_cost(cells,pos,goal,orientation):
@@ -99,17 +100,17 @@ def neighbour_least_cost(cells,pos,goal,orientation):
             least[1] = cost[i][1]
             least[2] = cost[i][2]
             least[3] = orientation[i]
-            print(orientation[i])
-        print("Cost:",cost)
-        print("least:",least)
+            #print(orientation[i])
+        #print("Cost:",cost)
+        #print("least:",least)
     #plt.plot([pos[0],pos[1]],[least[0],least[1]],"-b")
-    print("final:",least)
+    #print("final:",least)
     return least
 
 def main():
     playGround=[0,10000,0,400]
     area = [[1 for _ in range(playGround[3])] for _ in range(playGround[1])]
-    print(area)
+    #print(area)
     """
     0: new
     1: open
@@ -117,10 +118,9 @@ def main():
     """
     
     start = [1,1]
-    orientation_last = 0
-    waypoint = [[300,300]]
-    #goal = waypoint[1]
-    plt.axis([0,10000,0,500])
+    orientation_last = [0]
+    waypoint = [[100,100],[200,200],[300,100],[700,300],[600,200]]
+    plt.axis([0,10000,0,400])
     for i in range (len(waypoint)):
         goal = waypoint[i]
         print(i)
@@ -138,7 +138,7 @@ def main():
             plt.plot([0,10000,10000,0,0],[0,0,400,400,0],"-r")
             pos[0]=a[0]
             pos[1]=a[1] 
-            orientation_last=float(a[3])
+            orientation_last[0]=a[2]
             print("next step:",a)
         print("ALERT: Reached Waypoint",i)
     plt.show()
