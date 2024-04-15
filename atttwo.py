@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def detected(area):
-    #for i in range(30,200):
-        #for j in range(30,55):
-            #area[i][j]=-1
-    #plt.plot([30,200,200,30,10],[30,30,55,55,30],"-b")
+    for i in range(30,200):
+        for j in range(30,55):
+            area[i][j]=-1
+    plt.plot([30,200,200,30,10],[30,30,55,55,30],"-b")
 
     return area
 def distance(x1,y1,x2,y2):
@@ -134,8 +134,9 @@ def main():
             a = neighbour_least_cost(ab,pos,goal,orientation)
             plt.pause(0.0001)
             plt.plot(goal[0], goal[1], "-xr")
-            plt.plot(pos[0],pos[1],"-xg")
+           # plt.plot(pos[0],pos[1],"-xg")
             plt.plot([0,10000,10000,0,0],[0,0,400,400,0],"-r")
+            plt.plot([pos[0],a[0]],[pos[1],a[1]])
             pos[0]=a[0]
             pos[1]=a[1] 
             orientation_last[0]=a[2]
