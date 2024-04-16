@@ -200,10 +200,11 @@ class Dstar:
 
 def AddNewObstacle(map:Map):
     ox, oy = [], []
-    for i in range(5, 21):
-        ox.append(i)
-        oy.append(40)
-    map.set_obstacle([(i, j) for i, j in zip(ox, oy)])
+    # for i in range(5, 21):
+    #     ox.append(i)
+    #     oy.append(40)
+    # map.set_obstacle([(i, j) for i, j in zip(ox, oy)])
+    
     if show_animation:
         plt.pause(0.001)
         plt.plot(ox, oy, ".g")
@@ -211,28 +212,29 @@ def AddNewObstacle(map:Map):
 def main():
     m = Map(100, 100)
     ox, oy = [], []
-    for i in range(-10, 60):
-        ox.append(i)
-        oy.append(-10)
-    for i in range(-10, 60):
-        ox.append(60)
-        oy.append(i)
-    for i in range(-10, 61):
-        ox.append(i)
-        oy.append(60)
-    for i in range(-10, 61):
-        ox.append(-10)
-        oy.append(i)
-    for i in range(-10, 40):
-        ox.append(20)
-        oy.append(i)
-    for i in range(0, 40):
-        ox.append(40)
-        oy.append(60 - i)
+    # for i in range(-10, 60):
+    #     ox.append(i)
+    #     oy.append(-10)
+    # for i in range(-10, 60):
+    #     ox.append(60)
+    #     oy.append(i)
+    # for i in range(-10, 61):
+    #     ox.append(i)
+    #     oy.append(60)
+    # for i in range(-10, 61):
+    #     ox.append(-10)
+    #     oy.append(i)
+    # for i in range(-10, 40):
+    #     ox.append(20)
+    #     oy.append(i)
+    # for i in range(0, 40):
+    #     ox.append(40)
+    #     oy.append(60 - i)
+
     m.set_obstacle([(i, j) for i, j in zip(ox, oy)])
 
-    start = [10, 10]
-    goal = [50, 50]
+    start = [0, 0]
+    goal = [100, 100]
     if show_animation:
         plt.plot(ox, oy, ".k")
         plt.plot(start[0], start[1], "og")
