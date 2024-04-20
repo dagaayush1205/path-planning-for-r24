@@ -200,17 +200,17 @@ class Dstar:
 
 def AddNewObstacle(map:Map):
     ox, oy = [], []
-    # for i in range(5, 21):
-    #     ox.append(i)
-    #     oy.append(40)
-    # map.set_obstacle([(i, j) for i, j in zip(ox, oy)])
+    for i in range(5, 21):
+        ox.append(i)
+        oy.append(40)
+    map.set_obstacle([(i, j) for i, j in zip(ox, oy)])
     
     if show_animation:
         plt.pause(0.001)
         plt.plot(ox, oy, ".g")
 
 def main():
-    m = Map(100, 100)
+    m = Map(400, 1000)
     ox, oy = [], []
     # for i in range(-10, 60):
     #     ox.append(i)
@@ -234,7 +234,7 @@ def main():
     m.set_obstacle([(i, j) for i, j in zip(ox, oy)])
 
     start = [0, 0]
-    goal = [100, 100]
+    goal = [200, 200]
     if show_animation:
         plt.plot(ox, oy, ".k")
         plt.plot(start[0], start[1], "og")
