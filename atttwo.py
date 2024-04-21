@@ -162,7 +162,7 @@ def neighbour_least_cost(cells,pos,goal,orientation,area):
 
 
 def main():
-    playGround=[0,10000,0,400]
+    playGround=[0,500,0,400]
     cells_last=[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
     area = [[1 for _ in range(playGround[3])] for _ in range(playGround[1])]
     #print(area)
