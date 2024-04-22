@@ -148,15 +148,13 @@ def neighbour_cells(pos,playGround,area,goal):
 
 def check_open_cells(area):
     open_cells=[]
+
     for i in range(100):
         for j in range(100):
             if area[i][j][3] == 1:
                 open_cells.append([i,j])
-                plt.plot(i,j,"-xr")
             if area[i][j][3] == 2:
                 plt.plot(i,j,"-xb")
-            if area[i][j][3] == -1:
-                plt.plot(i,j,"-xg")
     
     return open_cells
 
@@ -164,15 +162,12 @@ def check_open_cells(area):
 def least_cost(open_cells,area):
     l=[0,0,100000]
     #print("open Cells: ",open_cells)
+    print(len(open_cells))
     for i in range (len(open_cells)):
         if l[2] > area[open_cells[i][0]][open_cells[i][1]][2]:
             l[2] = area[open_cells[i][0]][open_cells[i][1]][2]
             l[0] = open_cells[i][0]
             l[1] = open_cells[i][1]
-    # print("1,1 ",area[1][1][2])
-    # print("0,1 ",area[0][1][2])
-    # print("1,0 ",area[1][0][2])
-    # print("Least: ",l)
     return l
 
 # def open_cell_size_check(area,open_cells):
@@ -208,13 +203,13 @@ def main():
     obs_plot(25,20,28,100)
     for i in range (len(waypoint)):
         goal = waypoint[i]
-        print(i)
+        #print(i)
         it = 0
         while pos != goal:
             #area = detected(area)
             area, pos = neighbour_cells(pos,playGround,area,goal)
             a=pos
-            print(a)
+            #print(a)
             #plt.plot([pos[0],pos[1]],[a[0],a[1]],"-r")
             a=pos
             plt.gcf().canvas.mpl_connect(
