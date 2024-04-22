@@ -22,7 +22,7 @@ def obs_plot(x1,y1,x2,y2):
     plt.plot([a[0],a[1],a[1],a[0],a[0]],[b[0],b[0],b[1],b[1],b[0]],"-b")
 
 
- def detected(area):
+def detected(area):
     #group_set(area, (10,10), (100,100))
     #group_set(area, (200,100),(202,400))
 
@@ -118,7 +118,8 @@ def neighbour_cells(pos,playGround,area,goal):
             area[pos[0]-1][pos[1]][2] = final_cost(pos[0],pos[1],pos[0]-1,pos[1],goal,area)
 
     area[pos[0]][pos[1]][3] = 2 # closed the current cell
-    return cells
+    least_cost(check_open_cells(area),area)
+    return area, cells
 
 
 def neighbour_least_cost(cells,pos,goal,orientation,area):
@@ -146,7 +147,24 @@ def neighbour_least_cost(cells,pos,goal,orientation,area):
     return least,area
 
 
-def least_cost():
+def check_open_cells(area):
+    open_cells=[]
+    for i in range(100):
+        for j in range(100):
+            if area[i][j][3]==1:
+                open_cells.append([i,j])
+    return open_cells
+
+
+def least_cost(open_cells,area):
+    l=[0,0,100000]
+    for i in range (len(open_cells)):
+        if l[2] > area[open_cells[i][0]][open_cells[i][1]][2]:
+            l[2] = area[open_cells[i][0]][open_cells[i][1]][2]
+            l[0] = open_cells[i][0]
+            l[1] = open_cells[i][1]
+    return l
+
 
 def main():
     playGround=[0,100,0,100]
@@ -162,29 +180,30 @@ def main():
     plt.grid()
     start=[0,0]
     waypoint=[[70,70]]
+    pos = start
     area = [[[1 for _ in range(playGround[3])] for _ in range(playGround[1])] for _ in range(4)]
     for i in range (len(waypoint)):
         goal = waypoint[i]
         print(i)
-        pos = start
+        it = 0
         while pos != goal:
-            area = detected(area)
+            area, pos = neighbour_cells(pos,playGround,area,goal)
             plt.gcf().canvas.mpl_connect(
             'key_release_event',
             lambda event: [exit(0) if event.key == 'escape' else None])
-            ab, orientation, cells_last = neighbour_cells(pos,playGround,area,goal)
-            a,area = neighbour_least_cost(ab,pos,goal,orientation,area)
             plt.pause(0.01)
             plt.plot(goal[0], goal[1], "-xr")
-           # plt.plot(pos[0],pos[1],"-xg")
-            plt.plot([0,10000,10000,0,0],[0,0,400,400,0],"-r")
-            plt.plot([pos[0],a[0]],[pos[1],a[1]],"-g")
-            pos[0]=a[0]
-            pos[1]=a[1] 
-            orientation_last[0]=a[2]
+            plt.plot([0,100,100,0,0],[0,0,100,100,0],"-r")
+            it+=1
            # print("next step:",a)
-            print(pos[0]," ,",a[1])
         print("ALERT: Reached Waypoint",i)
+        x = area[goal[0]][goal[1]][0]
+        y = area[goal[0]][goal[1]][1]
+        while(iter):
+            iter-=1
+            plt.plot([goal[0],x],[goal[1],y],"-b")
+            x = area[x][y][0]
+            y = area[x][y][1]
         plt.grid()
     plt.show()
         
