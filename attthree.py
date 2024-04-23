@@ -117,8 +117,8 @@ def neighbour_cells(pos,playGround,area,goal):
             area[pos[0]-1][pos[1]][2] = final_cost(pos[0],pos[1],pos[0]-1,pos[1],goal,area)
 
     area[pos[0]][pos[1]][3] = 2 # closed the current cell
-    pos = least_cost(check_open_cells(area),area)
-    return area, pos
+    pos, open_cells = least_cost(check_open_cells(area),area)
+    return area, pos, open_cells
 
 
 # def neighbour_least_cost(cells,pos,goal,orientation,area):
@@ -168,12 +168,14 @@ def least_cost(open_cells,area):
             l[2] = area[open_cells[i][0]][open_cells[i][1]][2]
             l[0] = open_cells[i][0]
             l[1] = open_cells[i][1]
-    return l
+    return l, open_cells
 
-# def open_cell_size_check(area,open_cells):
-#     if len(open_cells)>50:
-        
 
+def open_cell_size_check(area,open_cells):
+    while len(open_cells)>=100:
+        area[open_cells[-1][0]][open_cells[-1][1]][3] = 0
+        open_cells.pop()
+    
 
 def goal_check(goal,area):
     if area[goal[0]][goal[1]][3] == 1:
@@ -190,10 +192,10 @@ def main():
     2: closed
     3: blocked
     """
-    plt.axis([0,50,0,50])
+    plt.axis([0,100,0,100])
     plt.grid()
     start=[0,0]
-    waypoint=[[30,30],[20,30]]
+    waypoint=[[30,30],[20,30],[10,10]]
     pos = start
     a=[0,0]
     area = [[[0 for _ in range(4)] for _ in range(playGround[3]+1)] for _ in range(playGround[1]+1)]
@@ -207,7 +209,7 @@ def main():
         it = 0
         while pos != goal:
             #area = detected(area)
-            area, pos = neighbour_cells(pos,playGround,area,goal)
+            area, pos, open_cells = neighbour_cells(pos,playGround,area,goal)
             a=pos
             #print(a)
             #plt.plot([pos[0],pos[1]],[a[0],a[1]],"-r")
@@ -219,6 +221,7 @@ def main():
             plt.plot(goal[0], goal[1], "-xr")
             plt.plot([0,playGround[1],playGround[1],0,0],[0,0,playGround[3],playGround[3],0],"-r")
             it+=1
+            open_cell_size_check(area,open_cells)
             if goal_check(goal,area):
                 print("goal reached")
                 break
@@ -226,7 +229,6 @@ def main():
         print("ALERT: Reached Waypoint",i)
         x = area[goal[0]][goal[1]][0]
         y = area[goal[0]][goal[1]][1]
-        plt.clf()
         while(it):
             it-=1
             plt.plot([x],[y],"-b")
